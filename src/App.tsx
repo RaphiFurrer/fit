@@ -4,6 +4,7 @@ import Circle from './components/Circle.tsx';
 import Bar from './components/Bar.tsx';
 import Login from './components/Login.tsx';
 import Footer from './footer.tsx';
+import sleep from "./assets/sleep.svg";
 
 const [today] = new Date().toISOString().split('T');
 
@@ -105,8 +106,8 @@ function App() {
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
-          <div className="flex justify-between">
-            <p className="text-lg font-bold">Erholung</p>
+          <div className="flex justify-between mb-2">
+            <div className="flex gap-2 icon"><p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" /></div>
             <div>{sleepScore} / 100</div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
