@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import Circle from './components/Circle.tsx';
 import Bar from './components/Bar.tsx';
@@ -73,6 +73,17 @@ function App() {
     }
   }, []);
 
+  const stepPercentage = useMemo(() => ((steps ?? 0) / STEP_GOAL) * 100, [steps]);
+  const activeMinutePercentage = useMemo(
+    () => ((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100,
+    [activeZoneMinutes],
+  );
+  const sleepPercentage = useMemo(() => sleepScore ?? 0, [sleepScore]);
+
+  const todayPercentage = useMemo(() => {
+    return Math.round(((stepPercentage + activeMinutePercentage + sleepPercentage) / 250) * 100);
+  }, [activeMinutePercentage, sleepPercentage, stepPercentage]);
+
   return (
     <>
       <Login />
@@ -80,17 +91,17 @@ function App() {
         <div className="card">
           <span>Heute</span>
 
-          <Circle percentage={50} />
+          <Circle percentage={todayPercentage} />
           <div>
             {steps} / {STEP_GOAL}
           </div>
-          <Bar percentage={((steps ?? 0) / STEP_GOAL) * 100}></Bar>
+          <Bar percentage={stepPercentage}></Bar>
           <div>
             {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
           </div>
-          <Bar percentage={((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100}></Bar>
-          <div>{sleepScore}</div>
-          <Bar percentage={sleepScore ?? 0}></Bar>
+          <Bar percentage={activeMinutePercentage}></Bar>
+          <div>{sleepScore} / 100</div>
+          <Bar percentage={sleepPercentage}></Bar>
         </div>
       </div>
       <Footer />
