@@ -76,9 +76,8 @@ button:focus-visible {
   height: 65px;
   background: #f8f8f8;
   border-top: 0.1px solid #969696;
-  left:0;
+  left: 0;
 }
-
 
 .footer-inner {
   display: flex;
