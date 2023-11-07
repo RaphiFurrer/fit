@@ -92,23 +92,23 @@ function App() {
           <p className="text-3xl font-bold">Heute</p>
           <Circle percentage={todayPercentage} />
           <div className="flex justify-between">
-            <p className="text-lg">Bewegung im Alltag</p>
+            <p className="text-lg font-bold">Bewegung im Alltag</p>
             <div>
               {steps} / {STEP_GOAL}
             </div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between">
-            <p className="text-lg">Sport</p>
+            <p className="text-lg font-bold">Sport</p>
             <p>
               {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between">
-            <p className="text-lg">Erholung</p>
+            <p className="text-lg font-bold">Erholung</p>
+              <div>{sleepScore} / 100</div>
           </div>
-          <div>{sleepScore} / 100</div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
       </div>
