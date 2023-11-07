@@ -89,17 +89,25 @@ function App() {
       <Login />
       <div className="flex items-center justify-center">
         <div className="card">
-          <span>Heute</span>
-
+          <p className="text-3xl font-bold">Heute</p>
           <Circle percentage={todayPercentage} />
-          <div>
-            {steps} / {STEP_GOAL}
+          <div className="flex justify-between">
+            <p className="text-lg">Bewegung im Alltag</p>
+            <div>
+              {steps} / {STEP_GOAL}
+            </div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
-          <div>
-            {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
+          <div className="flex justify-between">
+            <p className="text-lg">Sport</p>
+            <p>
+              {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
+            </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
+          <div className="flex justify-between">
+            <p className="text-lg">Erholung</p>
+          </div>
           <div>{sleepScore} / 100</div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
