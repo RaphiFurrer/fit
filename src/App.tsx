@@ -107,7 +107,7 @@ function App() {
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between">
             <p className="text-lg font-bold">Erholung</p>
-              <div>{sleepScore} / 100</div>
+            <div>{sleepScore} / 100</div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>

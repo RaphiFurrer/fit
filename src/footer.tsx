@@ -1,3 +1,4 @@
+import reward from './assets/reward.svg';
 const Footer = () => {
   return (
     <footer className="footer">
@@ -59,8 +60,10 @@ const Footer = () => {
             </span>
           </li>
           <li className="footer-item">
-            <span className="label">Health Points</span>
-            <span className="icon"></span>
+            <span className="label">Rewards</span>
+            <span className="icon">
+              <img src={reward} alt="" />
+            </span>
           </li>
         </ul>
       </div>
