@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { useSearchParams } from 'react-router-dom';
+import Circle from './components/Circle.tsx';
+import Bar from './components/Bar.tsx';
 
 const authUrl =
   'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RKZM&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=kbbxXLV--bx-NKTtE0rBrwQoDG78mgQLTnGBGVpNRHQ&code_challenge_method=S256&state=4v6t690k0y491g102f5u3j365g0p5b11&redirect_uri=http%3A%2F%2Flocalhost%3A5173';
+import './App.css';
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -141,8 +144,14 @@ function App() {
         )}
       </div>
       <div className="card">
+        <span>Heute</span>
         <pre id="json">{activeZoneMinutes}</pre>
         <pre id="json">{activeZoneMinutesYear}</pre>
+
+        <Circle percentage={50} />
+        <Bar percentage={60}></Bar>
+        <Bar percentage={60}></Bar>
+        <Bar percentage={60}></Bar>
       </div>
     </>
   );
