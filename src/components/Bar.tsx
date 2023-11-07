@@ -9,7 +9,7 @@ const Bar = ({ percentage }: {percentage: number}) => {
         <div className="w-full mx-auto">
             {/* Border Bar */}
             <div
-                className="bg-teal-100 border border-teal-500"
+                className="bg-gray-300"
                 style={{
                     width: barWidth + 'px',
                     height: barHeight + 'px',
@@ -17,7 +17,7 @@ const Bar = ({ percentage }: {percentage: number}) => {
             >
                 {/* Fill Bar */}
                 <div
-                    className="bg-teal-500"
+                    className="bg-[#00008f]"
                     style={{
                         width: fillWidth + 'px',
                         height: barHeight + 'px',

@@ -18,7 +18,7 @@ const Circle = ({percentage}: { percentage: number }) => {
                 />
                 <circle
                     fill="transparent"
-                    stroke="teal"
+                    stroke="#00008f"
                     strokeWidth={strokeWidth}
                     strokeDasharray={circumference + ' ' + circumference}
                     style={{strokeDashoffset}}
