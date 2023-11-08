@@ -153,12 +153,12 @@ function App() {
               : new Date(params.date).toLocaleDateString()}
           </p>
           <Circle level={level} />
-          <Link
+          { params.date !== today && params.date && (<Link
             className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
             to={nextDay}
           >
             {'>'}
-          </Link>
+          </Link>)}
           <Link
             className="absolute left-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
             to={lastDay}
