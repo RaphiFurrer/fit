@@ -82,3 +82,19 @@ button:focus-visible {
 .label {
   font-size: 13px;
 }
+
+.modal {
+  height: 80vh;
+  width: 80vw;
+  background-color: #ccc;
+  display: flex;
+  transition: transform 500ms ease-in;
+  transform: translateX(-100vw);
+  position: fixed;
+  top: 20px;
+  padding: 80px;
+}
+
+.modal-open {
+  transform: translateX(5vw);
+}
