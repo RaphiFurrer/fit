@@ -4,12 +4,15 @@ import Circle from './components/Circle.tsx';
 import Bar from './components/Bar.tsx';
 import Login from './components/Login.tsx';
 import Footer from './footer.tsx';
-import sleep from "./assets/sleep.svg";
+import sleep from './assets/sleep.svg';
+import sport from './assets/sport.svg';
+import footsteps from './assets/footsteps.svg';
 
 const [today] = new Date().toISOString().split('T');
 
 const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
+const RELAX_GOAL = 100;
 
 function App() {
   const [activeZoneMinutes, setActiveZoneMinutes] = useState();
@@ -92,23 +95,32 @@ function App() {
         <div className="card">
           <p className="text-3xl font-bold">Heute</p>
           <Circle percentage={todayPercentage} />
-          <div className="flex justify-between">
-            <p className="text-lg font-bold">Bewegung im Alltag</p>
+          <div className="flex justify-between mb-2">
+            <div className="flex gap-2">
+              <p className="text-lg font-bold">Bewegung im Alltag</p>{' '}
+              <img className="icon" src={footsteps} alt="" />
+            </div>
             <div>
               {steps} / {STEP_GOAL}
             </div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
-          <div className="flex justify-between">
-            <p className="text-lg font-bold">Sport</p>
+          <div className="flex justify-between mb-2">
+            <div className="flex gap-2 icon">
+              <p className="text-lg font-bold">Sport</p> <img src={sport} alt="" />
+            </div>
             <p>
               {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between mb-2">
-            <div className="flex gap-2 icon"><p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" /></div>
-            <div>{sleepScore} / 100</div>
+            <div className="flex gap-2 icon">
+              <p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" />
+            </div>
+            <div>
+              {sleepScore} / {RELAX_GOAL}
+            </div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
