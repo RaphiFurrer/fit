@@ -18,8 +18,8 @@ const [today] = new Date().toISOString().split('T');
 
 const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
-const RELAX_GOAL = 100;
-
+const RELAX_GOAL = 90;
+const GOAL_TEXT = '1 Punkt erreicht';
 const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -60,7 +60,7 @@ function App() {
             setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
         })
         .catch(() => {
-          setActiveZoneMinutes(isFutureDate ? 0 : getRandomInt(10, 20));
+          setActiveZoneMinutes(isFutureDate ? 0 : getRandomInt(10, 30));
         });
 
       fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${params.date || today}.json`, {
@@ -82,7 +82,7 @@ function App() {
             );
         })
         .catch(() => {
-          setSleepScore(isFutureDate ? 0 : getRandomInt(80, 99));
+          setSleepScore(isFutureDate ? 0 : getRandomInt(90, 99));
         });
 
       fetch(`https://api.fitbit.com/1/user/-/activities/date/${params.date || today}.json`, {
@@ -101,7 +101,7 @@ function App() {
           if (data.summary) setSteps(data.summary.steps);
         })
         .catch(() => {
-          setSteps(isFutureDate ? 0 : getRandomInt(4000, 10000));
+          setSteps(isFutureDate ? 0 : getRandomInt(4000, 200000));
         });
     }
   }, [params.date]);
@@ -165,9 +165,7 @@ function App() {
               <img className="icon" src={footsteps} alt="" />
               <p className="text-lg font-bold">Bewegung</p>
             </div>
-            <div>
-              {steps} / {STEP_GOAL}
-            </div>
+            <div>{steps > STEP_GOAL ? GOAL_TEXT : `${steps} / ${STEP_GOAL}`}</div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
@@ -176,7 +174,9 @@ function App() {
               <p className="text-lg font-bold">Sport</p>
             </div>
             <p>
-              {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
+              {activeZoneMinutes > ACTIVE_MINUTE_GOAL
+                ? GOAL_TEXT
+                : `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`}
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
@@ -185,9 +185,7 @@ function App() {
               <img src={sleep} alt="" />
               <p className="text-lg font-bold">Erholung</p>
             </div>
-            <div>
-              {sleepScore} / {RELAX_GOAL}
-            </div>
+            <div>{sleepScore > RELAX_GOAL ? GOAL_TEXT : `${sleepScore} / ${RELAX_GOAL}`}</div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
