@@ -19,6 +19,12 @@ const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 100;
 
+const getRandomInt = (min: number, max: number) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 function App() {
   const params = useParams();
 
@@ -29,6 +35,7 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
+    const isFutureDate = Date.parse(params.date || new Date().toISOString()) > new Date().getTime();
     if (accessToken) {
       fetch(
         `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
@@ -52,7 +59,7 @@ function App() {
             setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
         })
         .catch(() => {
-          setActiveZoneMinutes(16);
+          setActiveZoneMinutes(isFutureDate ? 0 : getRandomInt(10, 20));
         });
 
       fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${params.date || today}.json`, {
@@ -74,7 +81,7 @@ function App() {
             );
         })
         .catch(() => {
-          setSleepScore(90);
+          setSleepScore(isFutureDate ? 0 : getRandomInt(80, 99));
         });
 
       fetch(`https://api.fitbit.com/1/user/-/activities/date/${params.date || today}.json`, {
@@ -93,7 +100,7 @@ function App() {
           if (data.summary) setSteps(data.summary.steps);
         })
         .catch(() => {
-          setSteps(4578);
+          setSteps(isFutureDate ? 0 : getRandomInt(4000, 10000));
         });
     }
   }, [params.date]);
@@ -126,17 +133,21 @@ function App() {
     return current.toISOString().split('T')[0];
   }, [params.date]);
 
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) setIsOpen(true);
+  }, []);
+
   return (
     <>
       <Login />
       <Link
-        className="fixed right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         to={nextDay}
       >
         {'>'}
       </Link>
       <Link
-        className="fixed left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         to={lastDay}
       >
         {'<'}
@@ -149,8 +160,8 @@ function App() {
           <Circle percentage={todayPercentage} />
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
-              <p className="text-lg font-bold">Bewegung im Alltag</p>{' '}
               <img className="icon" src={footsteps} alt="" />
+              <p className="text-lg font-bold">Bewegung</p>
             </div>
             <div>
               {steps} / {STEP_GOAL}
@@ -159,7 +170,8 @@ function App() {
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Sport</p> <img src={sport} alt="" />
+              <img src={sport} alt="" />
+              <p className="text-lg font-bold">Sport</p>
             </div>
             <p>
               {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
@@ -197,14 +209,7 @@ function App() {
           <img className="w-1/2 mx-auto w-[50px]" src={yoga} alt="" />
         </div>
       </div>
-      <button
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        levelup
-      </button>
-      <Modal isOpen={isOpen} />
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Footer />
     </>
   );

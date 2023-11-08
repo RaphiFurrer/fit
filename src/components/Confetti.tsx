@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
-export default function Confetti() {
+export default function Confetti({trigger}) {
   const refAnimationInstance = useRef(null);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -25,8 +25,10 @@ export default function Confetti() {
   }, []);
 
   useEffect(() => {
-    fire();
-  }, []);
+    if(trigger === true){
+      fire();
+    }
+  }, [trigger]);
 
   const fire = useCallback(() => {
     makeShot(0.25, {
