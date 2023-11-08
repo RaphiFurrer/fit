@@ -44,8 +44,7 @@ function App() {
         .then((data) => {
           setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           setActiveZoneMinutes(16);
         });
 
@@ -66,8 +65,7 @@ function App() {
             data.sleep.find((sleep: { isMainSleep: boolean }) => sleep.isMainSleep).efficiency,
           );
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           setSleepScore(90);
         });
 
@@ -86,8 +84,7 @@ function App() {
         .then((data) => {
           setSteps(data.summary.steps);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           setSteps(4578);
         });
     }
