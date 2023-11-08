@@ -127,6 +127,19 @@ function App() {
           <Bar percentage={sleepPercentage}></Bar>
         </div>
       </div>
+      <p className="text-3xl font-bold mb-4">Rewards einlösen</p>
+      <div className="grid grid-cols-3 gap-2 mb-8">
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
+          3a
+        </div>
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
+         Swibeco
+        </div>
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center ">
+          Gutschein
+        </div>
+
+      </div>
       <button onClick={()=>{setIsOpen(true)}}>levelup</button>
       <Modal isOpen={isOpen}/>
       <Footer />
