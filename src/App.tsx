@@ -242,7 +242,7 @@ function App() {
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Klimaspende</p>
           <p className="pb-4">Investiere in ein Klimaschutzprojekt und unterstütze die Umwelt</p>
-          <img className="w-1/2 mx-auto w-[50px]" src={plant} alt="" />
+          <img className="mx-auto w-[50px]" src={plant} alt="" />
         </div>
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
