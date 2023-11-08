@@ -7,6 +7,7 @@ import Footer from './footer.tsx';
 import sleep from './assets/sleep.svg';
 import sport from './assets/sport.svg';
 import footsteps from './assets/footsteps.svg';
+import { Link, useParams } from 'react-router-dom';
 
 const [today] = new Date().toISOString().split('T');
 
@@ -15,6 +16,8 @@ const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 100;
 
 function App() {
+  const params = useParams();
+
   const [activeZoneMinutes, setActiveZoneMinutes] = useState();
   const [steps, setSteps] = useState();
   const [sleepScore, setSleepScore] = useState();
@@ -23,7 +26,9 @@ function App() {
     const accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       fetch(
-        `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${today}/1d.json`,
+        `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
+          params.date || today
+        }/1d.json`,
         {
           method: 'GET',
           headers: {
@@ -38,10 +43,11 @@ function App() {
           return response.json();
         })
         .then((data) => {
-          setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
+          if (data['activities-active-zone-minutes'][0])
+            setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
         });
 
-      fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${today}.json`, {
+      fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${params.date || today}.json`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -54,12 +60,13 @@ function App() {
           return response.json();
         })
         .then((data) => {
-          setSleepScore(
-            data.sleep.find((sleep: { isMainSleep: boolean }) => sleep.isMainSleep).efficiency,
-          );
+          if (data.sleep)
+            setSleepScore(
+              data.sleep.find((sleep: { isMainSleep: boolean }) => sleep.isMainSleep).efficiency,
+            );
         });
 
-      fetch(`https://api.fitbit.com/1/user/-/activities/date/${today}.json`, {
+      fetch(`https://api.fitbit.com/1/user/-/activities/date/${params.date || today}.json`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -72,28 +79,59 @@ function App() {
           return response.json();
         })
         .then((data) => {
-          setSteps(data.summary.steps);
+          if (data.summary) setSteps(data.summary.steps);
         });
     }
-  }, []);
+  }, [params.date]);
 
-  const stepPercentage = useMemo(() => ((steps ?? 0) / STEP_GOAL) * 100, [steps]);
+  const stepPercentage = useMemo(
+    () => Math.min(Math.round(((steps ?? 0) / STEP_GOAL) * 100), 100),
+    [steps],
+  );
   const activeMinutePercentage = useMemo(
-    () => ((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100,
+    () => Math.min(Math.round(((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100), 100),
     [activeZoneMinutes],
   );
   const sleepPercentage = useMemo(() => sleepScore ?? 0, [sleepScore]);
 
   const todayPercentage = useMemo(() => {
-    return Math.round(((stepPercentage + activeMinutePercentage + sleepPercentage) / 250) * 100);
+    return Math.min(
+      Math.round(((stepPercentage + activeMinutePercentage + sleepPercentage) / 250) * 100),
+      100,
+    );
   }, [activeMinutePercentage, sleepPercentage, stepPercentage]);
+
+  const nextDay = useMemo(() => {
+    const current = new Date(params.date || new Date());
+    current.setDate(current.getDate() + 1);
+    return current.toISOString().split('T')[0];
+  }, [params.date]);
+  const lastDay = useMemo(() => {
+    const current = new Date(params.date || new Date());
+    current.setDate(current.getDate() - 1);
+    return current.toISOString().split('T')[0];
+  }, [params.date]);
 
   return (
     <>
       <Login />
+      <Link
+        className="fixed right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        to={nextDay}
+      >
+        {'>'}
+      </Link>
+      <Link
+        className="fixed left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        to={lastDay}
+      >
+        {'<'}
+      </Link>
       <div className="flex items-center justify-center">
         <div className="card">
-          <p className="text-3xl font-bold">Heute</p>
+          <p className="text-3xl font-bold">
+            {!params.date || params.date === today ? 'Heute' : params.date}
+          </p>
           <Circle percentage={todayPercentage} />
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
@@ -131,12 +169,11 @@ function App() {
           3a
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-         Swibeco
+          Swibeco
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center ">
           Gutschein
         </div>
-
       </div>
       <Footer />
     </>
