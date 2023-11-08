@@ -3,10 +3,11 @@ import './App.css';
 import Circle from './components/Circle.tsx';
 import Bar from './components/Bar.tsx';
 import Login from './components/Login.tsx';
-import Footer from './footer.tsx';
+import Footer from './components/Footer.tsx';
 import sleep from './assets/sleep.svg';
 import sport from './assets/sport.svg';
 import footsteps from './assets/footsteps.svg';
+import Modal from './components/Modal';
 import { Link, useParams } from 'react-router-dom';
 
 const [today] = new Date().toISOString().split('T');
@@ -18,9 +19,10 @@ const RELAX_GOAL = 100;
 function App() {
   const params = useParams();
 
-  const [activeZoneMinutes, setActiveZoneMinutes] = useState();
-  const [steps, setSteps] = useState();
-  const [sleepScore, setSleepScore] = useState();
+  const [activeZoneMinutes, setActiveZoneMinutes] = useState(0);
+  const [steps, setSteps] = useState(0);
+  const [sleepScore, setSleepScore] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -45,6 +47,10 @@ function App() {
         .then((data) => {
           if (data['activities-active-zone-minutes'][0])
             setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
+        })
+        .catch((error) => {
+          console.log(error);
+          setActiveZoneMinutes(16);
         });
 
       fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${params.date || today}.json`, {
@@ -64,6 +70,10 @@ function App() {
             setSleepScore(
               data.sleep.find((sleep: { isMainSleep: boolean }) => sleep.isMainSleep).efficiency,
             );
+        })
+        .catch((error) => {
+          console.log(error);
+          setSleepScore(90);
         });
 
       fetch(`https://api.fitbit.com/1/user/-/activities/date/${params.date || today}.json`, {
@@ -80,6 +90,10 @@ function App() {
         })
         .then((data) => {
           if (data.summary) setSteps(data.summary.steps);
+        })
+        .catch((error) => {
+          console.log(error);
+          setSteps(4578);
         });
     }
   }, [params.date]);
@@ -175,6 +189,14 @@ function App() {
           Gutschein
         </div>
       </div>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        levelup
+      </button>
+      <Modal isOpen={isOpen} />
       <Footer />
     </>
   );
