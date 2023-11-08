@@ -138,7 +138,10 @@ function App() {
   }, [params.date]);
 
   useEffect(() => {
-    if (localStorage.getItem('access_token')) setIsOpen(true);
+    if (localStorage.getItem('access_token') && !localStorage.getItem('modal_shown')) {
+      setIsOpen(true);
+      localStorage.setItem('modal_shown', 'true');
+    }
   }, []);
 
   return (
