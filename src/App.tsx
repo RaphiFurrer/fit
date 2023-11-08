@@ -148,106 +148,113 @@ function App() {
     <>
       <Header />
       <Login />
-      <div className="flex items-center justify-center">
-        <div className="card relative">
-          <p className="text-3xl font-bold">
-            {!params.date || params.date === today
-              ? 'Heute'
-              : new Date(params.date).toLocaleDateString()}
-          </p>
-          <Circle level={level} />
-          {params.date !== today && params.date && (
-            <Link
-              className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
-              to={nextDay}
-            >
-              {'>'}
-            </Link>
-          )}
-          <Link
-            className="absolute left-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
-            to={lastDay}
-          >
-            {'<'}
-          </Link>
-          <div className="flex justify-between mb-2">
-            <div className="flex gap-2">
-              <img className="icon" src={footsteps} alt="" />
-              <p className="text-lg font-bold">Schritte</p>
-            </div>
-            <div>
-              {steps >= STEP_GOAL ? (
-                <div className="flex gap-2">
-                  <p className="my-auto">{GOAL_TEXT}</p>
-                  <img className="icon" src={check} alt="" />
-                </div>
-              ) : (
-                `${steps} / ${STEP_GOAL}`
+      {localStorage.getItem('access_token') && (
+        <>
+          <div className="flex items-center justify-center">
+            <div className="card relative">
+              <p className="text-3xl font-bold">
+                {!params.date || params.date === today
+                  ? 'Heute'
+                  : new Date(params.date).toLocaleDateString()}
+              </p>
+              <Circle level={level} />
+              {params.date !== today && params.date && (
+                <Link
+                  className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
+                  to={nextDay}
+                >
+                  {'>'}
+                </Link>
               )}
+              <Link
+                className="absolute left-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
+                to={lastDay}
+              >
+                {'<'}
+              </Link>
+              <div className="flex justify-between mb-2">
+                <div className="flex gap-2">
+                  <img className="icon" src={footsteps} alt="" />
+                  <p className="text-lg font-bold">Schritte</p>
+                </div>
+                <div>
+                  {steps >= STEP_GOAL ? (
+                    <div className="flex gap-2">
+                      <p className="my-auto">{GOAL_TEXT}</p>
+                      <img className="icon" src={check} alt="" />
+                    </div>
+                  ) : (
+                    `${steps} / ${STEP_GOAL}`
+                  )}
+                </div>
+              </div>
+              <Bar percentage={stepPercentage}></Bar>
+              <div className="flex justify-between mb-2">
+                <div className="flex gap-2 icon">
+                  <img src={sport} alt="" />
+                  <p className="text-lg font-bold">Aktivminuten</p>
+                </div>
+                <p>
+                  {activeZoneMinutes >= ACTIVE_MINUTE_GOAL ? (
+                    <div className="flex gap-2">
+                      <p className="my-auto">{GOAL_TEXT}</p>
+                      <img className="icon" src={check} alt="" />
+                    </div>
+                  ) : (
+                    `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
+                  )}
+                </p>
+              </div>
+              <Bar percentage={activeMinutePercentage}></Bar>
+              <div className="flex justify-between mb-2">
+                <div className="flex gap-2 icon">
+                  <img src={sleep} alt="" />
+                  <p className="text-lg font-bold">Schlaf</p>
+                </div>
+                <div>
+                  {sleepScore >= RELAX_GOAL ? (
+                    <div className="flex gap-2">
+                      <p className="my-auto">{GOAL_TEXT}</p>
+                      <img className="icon" src={check} alt="" />
+                    </div>
+                  ) : (
+                    `${sleepScore} / ${RELAX_GOAL}`
+                  )}
+                </div>
+              </div>
+              <Bar percentage={sleepPercentage}></Bar>
             </div>
           </div>
-          <Bar percentage={stepPercentage}></Bar>
-          <div className="flex justify-between mb-2">
-            <div className="flex gap-2 icon">
-              <img src={sport} alt="" />
-              <p className="text-lg font-bold">Aktivminuten</p>
+
+          <p className="text-3xl font-bold mb-4">Rewards einlösen</p>
+          <div className="flex flex-col mb-16">
+            <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+              <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
+              <p className="pb-4">Investiere in deine Säule 3a und deine Zukunft</p>
+              <img className="mx-auto w-[50px]" src={gold} alt="" />
             </div>
-            <p>
-              {activeZoneMinutes >= ACTIVE_MINUTE_GOAL ? (
-                <div className="flex gap-2">
-                  <p className="my-auto">{GOAL_TEXT}</p>
-                  <img className="icon" src={check} alt="" />
-                </div>
-              ) : (
-                `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
-              )}
-            </p>
-          </div>
-          <Bar percentage={activeMinutePercentage}></Bar>
-          <div className="flex justify-between mb-2">
-            <div className="flex gap-2 icon">
-              <img src={sleep} alt="" />
-              <p className="text-lg font-bold">Schlaf</p>
+            <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+              <p className="pt-4 font-bold text-xl">Swibeco</p>
+              <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
+              <img className="w-1/2 mx-auto" src={swibeco} alt="" />
             </div>
-            <div>
-              {sleepScore >= RELAX_GOAL ? (
-                <div className="flex gap-2">
-                  <p className="my-auto">{GOAL_TEXT}</p>
-                  <img className="icon" src={check} alt="" />
-                </div>
-              ) : (
-                `${sleepScore} / ${RELAX_GOAL}`
-              )}
+            <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+              <p className="pt-4 font-bold text-xl">Partnerleistung</p>
+              <p className="pb-4">
+                Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
+              </p>
+              <img className="mx-auto w-[50px]" src={yoga} alt="" />
+            </div>
+            <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+              <p className="pt-4 font-bold text-xl">Klimaspende</p>
+              <p className="pb-4">
+                Investiere in ein Klimaschutzprojekt und unterstütze die Umwelt
+              </p>
+              <img className="mx-auto w-[50px]" src={plant} alt="" />
             </div>
           </div>
-          <Bar percentage={sleepPercentage}></Bar>
-        </div>
-      </div>
-      <p className="text-3xl font-bold mb-4">Rewards einlösen</p>
-      <div className="flex flex-col mb-16">
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
-          <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
-          <p className="pb-4">Investiere in deine Säule 3a und deine Zukunft</p>
-          <img className="mx-auto w-[50px]" src={gold} alt="" />
-        </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
-          <p className="pt-4 font-bold text-xl">Swibeco</p>
-          <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
-          <img className="w-1/2 mx-auto" src={swibeco} alt="" />
-        </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
-          <p className="pt-4 font-bold text-xl">Partnerleistung</p>
-          <p className="pb-4">
-            Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
-          </p>
-          <img className="mx-auto w-[50px]" src={yoga} alt="" />
-        </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
-          <p className="pt-4 font-bold text-xl">Klimaspende</p>
-          <p className="pb-4">Investiere in ein Klimaschutzprojekt und unterstütze die Umwelt</p>
-          <img className="mx-auto w-[50px]" src={plant} alt="" />
-        </div>
-      </div>
+        </>
+      )}
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} level={level} />
       <Footer />
     </>
