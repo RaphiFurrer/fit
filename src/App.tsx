@@ -180,7 +180,8 @@ function App() {
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" />
+              <img src={sleep} alt="" />
+              <p className="text-lg font-bold">Erholung</p>
             </div>
             <div>
               {sleepScore} / {RELAX_GOAL}
