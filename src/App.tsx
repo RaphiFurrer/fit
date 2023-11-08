@@ -13,13 +13,14 @@ import { Link, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import gold from './assets/gold.svg';
 import yoga from './assets/yoga.svg';
+import check from './assets/check.svg';
 
 const [today] = new Date().toISOString().split('T');
 
 const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 90;
-const GOAL_TEXT = '1 Punkt erreicht';
+const GOAL_TEXT = `1 Punkt erreicht`;
 const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -37,7 +38,7 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
     const isFutureDate = Date.parse(params.date || new Date().toISOString()) > new Date().getTime();
-    if (accessToken) {
+    if (!accessToken) {
       fetch(
         `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
           params.date || today
@@ -165,7 +166,16 @@ function App() {
               <img className="icon" src={footsteps} alt="" />
               <p className="text-lg font-bold">Bewegung</p>
             </div>
-            <div>{steps > STEP_GOAL ? GOAL_TEXT : `${steps} / ${STEP_GOAL}`}</div>
+            <div>
+              {steps > STEP_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} />
+                </div>
+              ) : (
+                `${steps} / ${STEP_GOAL}`
+              )}
+            </div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
@@ -174,9 +184,14 @@ function App() {
               <p className="text-lg font-bold">Sport</p>
             </div>
             <p>
-              {activeZoneMinutes > ACTIVE_MINUTE_GOAL
-                ? GOAL_TEXT
-                : `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`}
+              {activeZoneMinutes > ACTIVE_MINUTE_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} />
+                </div>
+              ) : (
+                `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
+              )}
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
@@ -185,7 +200,16 @@ function App() {
               <img src={sleep} alt="" />
               <p className="text-lg font-bold">Erholung</p>
             </div>
-            <div>{sleepScore > RELAX_GOAL ? GOAL_TEXT : `${sleepScore} / ${RELAX_GOAL}`}</div>
+            <div>
+              {sleepScore > RELAX_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} />
+                </div>
+              ) : (
+                `${sleepScore} / ${RELAX_GOAL}`
+              )}
+            </div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
