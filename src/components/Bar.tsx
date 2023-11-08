@@ -1,9 +1,7 @@
 const Bar = ({ percentage }: { percentage: number }) => {
   const barWidth = 300; // Width of the progress bar
   const barHeight = 30; // Height of the progress bar
-  const borderStrokeWidth = 2; // Width of the border
-  const normalizedWidth = barWidth - borderStrokeWidth * 2; // Adjust for the border
-  const fillWidth = (percentage / 100) * normalizedWidth;
+  const fillWidth = (percentage / 100) * barWidth;
 
   return (
     <div className="w-full mx-auto">
