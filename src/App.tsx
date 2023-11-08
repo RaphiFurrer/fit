@@ -134,13 +134,13 @@ function App() {
     <>
       <Login />
       <Link
-        className="fixed right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         to={nextDay}
       >
         {'>'}
       </Link>
       <Link
-        className="fixed left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         to={lastDay}
       >
         {'<'}
@@ -153,8 +153,8 @@ function App() {
           <Circle percentage={todayPercentage} />
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
-              <p className="text-lg font-bold">Bewegung im Alltag</p>{' '}
               <img className="icon" src={footsteps} alt="" />
+              <p className="text-lg font-bold">Bewegung</p>
             </div>
             <div>
               {steps} / {STEP_GOAL}
@@ -163,7 +163,8 @@ function App() {
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Sport</p> <img src={sport} alt="" />
+              <img src={sport} alt="" />
+              <p className="text-lg font-bold">Sport</p>
             </div>
             <p>
               {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
@@ -172,7 +173,8 @@ function App() {
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" />
+              <img src={sleep} alt="" />
+              <p className="text-lg font-bold">Erholung</p>
             </div>
             <div>
               {sleepScore} / {RELAX_GOAL}
@@ -182,16 +184,20 @@ function App() {
         </div>
       </div>
       <p className="text-3xl font-bold mb-4">Rewards einlösen</p>
-      <div className="grid grid-cols-3 gap-2 mb-8">
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-          3a
+      <div className="flex flex-col mb-16">
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+          <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
+          <p>Investiere in deine Säule 3a und deine Zukunft</p>
         </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-          Swibeco
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+          <p className="pt-4 font-bold text-xl">Swibeco</p>
+          <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
         </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center ">
-          Gutschein
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+         <p className="pt-4 font-bold text-xl">Partnerleistung</p>
+          <p className="pb-4">Gutschein bei einem Leistungserbringer einlösen z.B. eine Massage</p>
         </div>
+
       </div>
       <button
         onClick={() => {
