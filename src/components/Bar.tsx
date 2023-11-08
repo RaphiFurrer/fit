@@ -4,7 +4,7 @@ const Bar = ({ percentage }: { percentage: number }) => {
   const fillWidth = (percentage / 100) * barWidth;
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mx-auto mb-6">
       {/* Border Bar */}
       <div
         className="bg-gray-300"
@@ -22,7 +22,6 @@ const Bar = ({ percentage }: { percentage: number }) => {
           }}
         ></div>
       </div>
-      <div className="text-teal text-center mt-2">{percentage}%</div>
     </div>
   );
 };

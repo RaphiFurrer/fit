@@ -114,13 +114,13 @@ function App() {
     () => Math.min(Math.round(((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100), 100),
     [activeZoneMinutes],
   );
-  const sleepPercentage = useMemo(() => sleepScore ?? 0, [sleepScore]);
+  const sleepPercentage = useMemo(() => Math.min(sleepScore ?? 0, 90) + 10, [sleepScore]);
 
   const level = useMemo(() => {
     let level = 0;
     if (stepPercentage === 100) level++;
     if (activeMinutePercentage === 100) level++;
-    if (sleepPercentage > 90) level++;
+    if (sleepPercentage === 100) level++;
     return level;
   }, [activeMinutePercentage, sleepPercentage, stepPercentage]);
 
