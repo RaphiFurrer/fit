@@ -9,6 +9,7 @@ import sport from './assets/sport.svg';
 import footsteps from './assets/footsteps.svg';
 import Modal from './components/Modal';
 import { Link, useParams } from 'react-router-dom';
+import Header from './components/Header';
 
 const [today] = new Date().toISOString().split('T');
 
@@ -132,6 +133,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <Login />
       <Link
         className="absolute right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
