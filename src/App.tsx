@@ -130,6 +130,10 @@ function App() {
     return current.toISOString().split('T')[0];
   }, [params.date]);
 
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) setIsOpen(true);
+  }, []);
+
   return (
     <>
       <Login />
@@ -145,7 +149,6 @@ function App() {
       >
         {'<'}
       </Link>
-        <button onClick={()=>{setIsOpen(true)}}>levelup</button>
       <div className="flex items-center justify-center">
         <div className="card">
           <p className="text-3xl font-bold">
@@ -199,7 +202,7 @@ function App() {
           <p className="pb-4">Gutschein bei einem Leistungserbringer einlösen z.B. eine Massage</p>
         </div>
       </div>
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Footer />
     </>
   );
