@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
     const isFutureDate = Date.parse(params.date || new Date().toISOString()) > new Date().getTime();
-    if (!accessToken) {
+    if (accessToken) {
       fetch(
         `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
           params.date || today
@@ -195,10 +195,9 @@ function App() {
           <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
-         <p className="pt-4 font-bold text-xl">Partnerleistung</p>
+          <p className="pt-4 font-bold text-xl">Partnerleistung</p>
           <p className="pb-4">Gutschein bei einem Leistungserbringer einlösen z.B. eine Massage</p>
         </div>
-
       </div>
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}/>
       <Footer />
