@@ -7,9 +7,12 @@ import Footer from './components/Footer.tsx';
 import sleep from './assets/sleep.svg';
 import sport from './assets/sport.svg';
 import footsteps from './assets/footsteps.svg';
+import swibeco from './assets/swibeco.svg';
 import Modal from './components/Modal';
 import { Link, useParams } from 'react-router-dom';
 import Header from './components/Header';
+import gold from './assets/gold.svg';
+import yoga from './assets/yoga.svg';
 
 const [today] = new Date().toISOString().split('T');
 
@@ -131,18 +134,22 @@ function App() {
     return current.toISOString().split('T')[0];
   }, [params.date]);
 
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) setIsOpen(true);
+  }, []);
+
   return (
     <>
       <Header />
       <Login />
       <Link
-        className="absolute right-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute right-1 top-1/3 text-gray-800 font-semibold py-2 px-4 scale-150"
         to={nextDay}
       >
         {'>'}
       </Link>
       <Link
-        className="absolute left-1 top-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="absolute left-1 top-1/3 text-gray-800 font-semibold py-2 px-4 scale-150"
         to={lastDay}
       >
         {'<'}
@@ -190,24 +197,22 @@ function App() {
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
           <p>Investiere in deine Säule 3a und deine Zukunft</p>
+          <img className="w-1/2 mx-auto w-[50px]" src={gold} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Swibeco</p>
           <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
+          <img className="w-1/2 mx-auto" src={swibeco} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Partnerleistung</p>
-          <p className="pb-4">Gutschein bei einem Leistungserbringer einlösen z.B. eine Massage</p>
+          <p className="pb-4">
+            Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
+          </p>
+          <img className="w-1/2 mx-auto w-[50px]" src={yoga} alt="" />
         </div>
       </div>
-      <button
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        levelup
-      </button>
-      <Modal isOpen={isOpen} />
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Footer />
     </>
   );
