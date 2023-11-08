@@ -48,19 +48,21 @@ const Login = () => {
   return (
     <div>
       {!localStorage.getItem('access_token') && (
-        <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
-          <img src={fitbit} alt="" className="w-12 h-12" />
-          <a href={authUrl}>Mit Fitbit verbinden</a>
-        </div>
+        <>
+          <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
+            <img src={fitbit} alt="" className="w-12 h-12" />
+            <a href={authUrl}>Mit Fitbit verbinden</a>
+          </div>
+          <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
+            <img src={apple} alt="" className="w-12 h-12 p-4" />
+            <a>Mit Apple verbinden</a>
+          </div>
+          <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center">
+            <img src={garmin} alt="" className="w-12 h-12" />
+            <a href={authUrl}>Mit Garmin verbinden</a>
+          </div>
+        </>
       )}
-      <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
-        <img src={apple} alt="" className="w-12 h-12 p-4" />
-        <a>Mit Apple verbinden</a>
-      </div>
-      <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center">
-        <img src={garmin} alt="" className="w-12 h-12" />
-        <a href={authUrl}>Mit Garmin verbinden</a>
-      </div>
     </div>
   );
 };
