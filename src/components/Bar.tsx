@@ -15,7 +15,7 @@ const Bar = ({ percentage }: { percentage: number }) => {
       >
         {/* Fill Bar */}
         <div
-          className="bg-[#00008f]"
+          className={percentage === 100 ? 'bg-[#9fbeaf]' : 'bg-[#00008f]'}
           style={{
             width: fillWidth + 'px',
             height: barHeight + 'px',
