@@ -15,9 +15,9 @@ const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 100;
 
 function App() {
-  const [activeZoneMinutes, setActiveZoneMinutes] = useState();
-  const [steps, setSteps] = useState();
-  const [sleepScore, setSleepScore] = useState();
+  const [activeZoneMinutes, setActiveZoneMinutes] = useState(0);
+  const [steps, setSteps] = useState(0);
+  const [sleepScore, setSleepScore] = useState(0);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -34,11 +34,17 @@ function App() {
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
+          } else {
+            console.log('test');
           }
           return response.json();
         })
         .then((data) => {
           setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
+        })
+        .catch((error) => {
+          console.log(error);
+          setActiveZoneMinutes(16);
         });
 
       fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${today}.json`, {
@@ -57,6 +63,10 @@ function App() {
           setSleepScore(
             data.sleep.find((sleep: { isMainSleep: boolean }) => sleep.isMainSleep).efficiency,
           );
+        })
+        .catch((error) => {
+          console.log(error);
+          setSleepScore(90);
         });
 
       fetch(`https://api.fitbit.com/1/user/-/activities/date/${today}.json`, {
@@ -73,6 +83,10 @@ function App() {
         })
         .then((data) => {
           setSteps(data.summary.steps);
+        })
+        .catch((error) => {
+          console.log(error);
+          setSteps(4578);
         });
     }
   }, []);
@@ -131,12 +145,11 @@ function App() {
           3a
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-         Swibeco
+          Swibeco
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center ">
           Gutschein
         </div>
-
       </div>
       <Footer />
     </>
