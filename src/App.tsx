@@ -16,6 +16,12 @@ const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 100;
 
+const getRandomInt = (min: number, max: number) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 function App() {
   const params = useParams();
 
@@ -26,7 +32,8 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
-    if (accessToken) {
+    const isFutureDate = Date.parse(params.date || new Date().toISOString()) > new Date().getTime();
+    if (!accessToken) {
       fetch(
         `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
           params.date || today
@@ -49,7 +56,7 @@ function App() {
             setActiveZoneMinutes(data['activities-active-zone-minutes'][0].value.activeZoneMinutes);
         })
         .catch(() => {
-          setActiveZoneMinutes(16);
+          setActiveZoneMinutes(isFutureDate ? 0 : getRandomInt(10, 20));
         });
 
       fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${params.date || today}.json`, {
@@ -71,7 +78,7 @@ function App() {
             );
         })
         .catch(() => {
-          setSleepScore(90);
+          setSleepScore(isFutureDate ? 0 : getRandomInt(80, 99));
         });
 
       fetch(`https://api.fitbit.com/1/user/-/activities/date/${params.date || today}.json`, {
@@ -90,7 +97,7 @@ function App() {
           if (data.summary) setSteps(data.summary.steps);
         })
         .catch(() => {
-          setSteps(4578);
+          setSteps(isFutureDate ? 0 : getRandomInt(4000, 10000));
         });
     }
   }, [params.date]);
