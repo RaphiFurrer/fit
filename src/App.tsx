@@ -142,24 +142,24 @@ function App() {
     <>
       <Header />
       <Login />
-      <Link
-        className="absolute right-1 top-1/3 text-gray-800 font-semibold py-2 px-4 scale-150"
-        to={nextDay}
-      >
-        {'>'}
-      </Link>
-      <Link
-        className="absolute left-1 top-1/3 text-gray-800 font-semibold py-2 px-4 scale-150"
-        to={lastDay}
-      >
-        {'<'}
-      </Link>
       <div className="flex items-center justify-center">
-        <div className="card">
+        <div className="card relative">
           <p className="text-3xl font-bold">
             {!params.date || params.date === today ? 'Heute' : params.date}
           </p>
           <Circle percentage={todayPercentage} />
+          <Link
+            className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
+            to={nextDay}
+          >
+            {'>'}
+          </Link>
+          <Link
+            className="absolute left-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
+            to={lastDay}
+          >
+            {'<'}
+          </Link>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
               <img className="icon" src={footsteps} alt="" />
