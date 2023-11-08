@@ -126,17 +126,19 @@ function App() {
         </div>
       </div>
       <p className="text-3xl font-bold mb-4">Rewards einlösen</p>
-      <div className="grid grid-cols-3 gap-2 mb-16">
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-          3a
+      <div className="flex flex-col mb-16">
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+          <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
+          <p>Investiere in deine Säule 3a und deine Zukunft</p>
         </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-         Swibeco
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+          <p className="pt-4 font-bold text-xl">Swibeco</p>
+          <p>Profitiere von akktraktiven Vorteilen auf Swibeco </p>
         </div>
-        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 text-lg font-bold text-center">
-          Gutschein
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+         <p className="pt-4 font-bold text-xl">Partnerleistung</p>
+          <p className="pb-4">Gutschein bei einem Leistungserbringer einlösen z.B. eine Massage</p>
         </div>
-
       </div>
       <Footer />
     </>
