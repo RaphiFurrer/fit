@@ -13,6 +13,7 @@ import { Link, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import gold from './assets/gold.svg';
 import yoga from './assets/yoga.svg';
+import plant from './assets/plant.svg';
 
 const [today] = new Date().toISOString().split('T');
 
@@ -208,6 +209,11 @@ function App() {
             Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
           </p>
           <img className="w-1/2 mx-auto w-[50px]" src={yoga} alt="" />
+        </div>
+        <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
+          <p className="pt-4 font-bold text-xl">Klimaspende</p>
+          <p className="pb-4">Investiere in ein Klimaschutzprojekt und unterstütze die Umwelt</p>
+          <img className="w-1/2 mx-auto w-[50px]" src={plant} alt="" />
         </div>
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
