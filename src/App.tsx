@@ -167,13 +167,13 @@ function App() {
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
               <img className="icon" src={footsteps} alt="" />
-              <p className="text-lg font-bold">Bewegung</p>
+              <p className="text-lg font-bold">Schritte</p>
             </div>
             <div>
               {steps > STEP_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} />
+                  <img className="w-4" src={check} alt="" />
                 </div>
               ) : (
                 `${steps} / ${STEP_GOAL}`
@@ -184,13 +184,13 @@ function App() {
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
               <img src={sport} alt="" />
-              <p className="text-lg font-bold">Sport</p>
+              <p className="text-lg font-bold">Aktivminuten</p>
             </div>
             <p>
               {activeZoneMinutes > ACTIVE_MINUTE_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} />
+                  <img className="w-4" src={check} alt="" />
                 </div>
               ) : (
                 `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
@@ -201,13 +201,13 @@ function App() {
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
               <img src={sleep} alt="" />
-              <p className="text-lg font-bold">Erholung</p>
+              <p className="text-lg font-bold">Schlaf</p>
             </div>
             <div>
               {sleepScore > RELAX_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} />
+                  <img className="w-4" src={check} alt="" />
                 </div>
               ) : (
                 `${sleepScore} / ${RELAX_GOAL}`
@@ -222,7 +222,7 @@ function App() {
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
           <p>Investiere in deine Säule 3a und deine Zukunft</p>
-          <img className="w-1/2 mx-auto w-[50px]" src={gold} alt="" />
+          <img className="mx-auto w-[50px]" src={gold} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Swibeco</p>
@@ -234,7 +234,7 @@ function App() {
           <p className="pb-4">
             Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
           </p>
-          <img className="w-1/2 mx-auto w-[50px]" src={yoga} alt="" />
+          <img className="mx-auto w-[50px]" src={yoga} alt="" />
         </div>
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
