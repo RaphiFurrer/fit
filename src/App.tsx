@@ -3,10 +3,11 @@ import './App.css';
 import Circle from './components/Circle.tsx';
 import Bar from './components/Bar.tsx';
 import Login from './components/Login.tsx';
-import Footer from './footer.tsx';
+import Footer from './components/Footer.tsx';
 import sleep from './assets/sleep.svg';
 import sport from './assets/sport.svg';
 import footsteps from './assets/footsteps.svg';
+import Modal from "./components/Modal";
 
 const [today] = new Date().toISOString().split('T');
 
@@ -18,6 +19,7 @@ function App() {
   const [activeZoneMinutes, setActiveZoneMinutes] = useState();
   const [steps, setSteps] = useState();
   const [sleepScore, setSleepScore] = useState();
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -125,6 +127,8 @@ function App() {
           <Bar percentage={sleepPercentage}></Bar>
         </div>
       </div>
+      <button onClick={()=>{setIsOpen(true)}}>levelup</button>
+      <Modal isOpen={isOpen}/>
       <Footer />
     </>
   );

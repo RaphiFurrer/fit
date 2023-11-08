@@ -1,4 +1,4 @@
-import reward from './assets/reward.svg';
+import reward from '../assets/reward.svg';
 const Footer = () => {
   return (
     <footer className="footer">
