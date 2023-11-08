@@ -146,8 +146,8 @@ function App() {
           <Circle percentage={todayPercentage} />
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
-              <p className="text-lg font-bold">Bewegung im Alltag</p>{' '}
               <img className="icon" src={footsteps} alt="" />
+              <p className="text-lg font-bold">Bewegung</p>
             </div>
             <div>
               {steps} / {STEP_GOAL}
@@ -156,7 +156,8 @@ function App() {
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Sport</p> <img src={sport} alt="" />
+              <img src={sport} alt="" />
+              <p className="text-lg font-bold">Sport</p>
             </div>
             <p>
               {activeZoneMinutes} / {ACTIVE_MINUTE_GOAL}
@@ -165,7 +166,8 @@ function App() {
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
-              <p className="text-lg font-bold">Erholung</p> <img src={sleep} alt="" />
+              <img src={sleep} alt="" />
+              <p className="text-lg font-bold">Erholung</p>
             </div>
             <div>
               {sleepScore} / {RELAX_GOAL}
