@@ -1,5 +1,6 @@
 import Confetti from './Confetti';
 import * as classNames from 'classnames';
+import Social from "./Social";
 
 const Modal = ({ isOpen, setIsOpen }: any) => {
   return (
@@ -17,6 +18,7 @@ const Modal = ({ isOpen, setIsOpen }: any) => {
       <h2>Du hast Level 2 erreicht.</h2>
         <p>Mach weiter so!</p>
       <Confetti trigger={isOpen} />
+        <Social/>
     </section>
   );
 };
