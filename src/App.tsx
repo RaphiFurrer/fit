@@ -222,7 +222,7 @@ function App() {
       <div className="flex flex-col mb-16">
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
-          <p>Investiere in deine Säule 3a und deine Zukunft</p>
+          <p className="pb-4">Investiere in deine Säule 3a und deine Zukunft</p>
           <img className="mx-auto w-[50px]" src={gold} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
