@@ -15,8 +15,8 @@ const Modal = ({ isOpen, setIsOpen }: any) => {
       </button>
       <div className="medal">🎉</div>
       <h1>Herzlichen Glückwünsch!</h1>
-      <h2>Du hast Level 2 erreicht.</h2>
-        <p>Mach weiter so!</p>
+      <h2>Du hast <b>Level 2</b> erreicht.</h2>
+        <b>Mach weiter so!</b>
       <Confetti trigger={isOpen} />
         <Social/>
     </section>
