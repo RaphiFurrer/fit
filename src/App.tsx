@@ -153,12 +153,14 @@ function App() {
               : new Date(params.date).toLocaleDateString()}
           </p>
           <Circle level={level} />
-          { params.date !== today && params.date && (<Link
-            className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
-            to={nextDay}
-          >
-            {'>'}
-          </Link>)}
+          {params.date !== today && params.date && (
+            <Link
+              className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
+              to={nextDay}
+            >
+              {'>'}
+            </Link>
+          )}
           <Link
             className="absolute left-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
             to={lastDay}
@@ -171,7 +173,7 @@ function App() {
               <p className="text-lg font-bold">Schritte</p>
             </div>
             <div>
-              {steps > STEP_GOAL ? (
+              {steps >= STEP_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
                   <img className="w-4" src={check} alt="" />
@@ -188,7 +190,7 @@ function App() {
               <p className="text-lg font-bold">Aktivminuten</p>
             </div>
             <p>
-              {activeZoneMinutes > ACTIVE_MINUTE_GOAL ? (
+              {activeZoneMinutes >= ACTIVE_MINUTE_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
                   <img className="w-4" src={check} alt="" />
@@ -205,7 +207,7 @@ function App() {
               <p className="text-lg font-bold">Schlaf</p>
             </div>
             <div>
-              {sleepScore > RELAX_GOAL ? (
+              {sleepScore >= RELAX_GOAL ? (
                 <div className="flex gap-2">
                   <p>{GOAL_TEXT}</p>
                   <img className="w-4" src={check} alt="" />
