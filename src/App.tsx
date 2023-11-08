@@ -175,8 +175,8 @@ function App() {
             <div>
               {steps >= STEP_GOAL ? (
                 <div className="flex gap-2">
-                  <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} alt="" />
+                  <p className="my-auto">{GOAL_TEXT}</p>
+                  <img className="icon" src={check} alt="" />
                 </div>
               ) : (
                 `${steps} / ${STEP_GOAL}`
@@ -192,8 +192,8 @@ function App() {
             <p>
               {activeZoneMinutes >= ACTIVE_MINUTE_GOAL ? (
                 <div className="flex gap-2">
-                  <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} alt="" />
+                  <p className="my-auto">{GOAL_TEXT}</p>
+                  <img className="icon" src={check} alt="" />
                 </div>
               ) : (
                 `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
@@ -209,8 +209,8 @@ function App() {
             <div>
               {sleepScore >= RELAX_GOAL ? (
                 <div className="flex gap-2">
-                  <p>{GOAL_TEXT}</p>
-                  <img className="w-4" src={check} alt="" />
+                  <p className="my-auto">{GOAL_TEXT}</p>
+                  <img className="icon" src={check} alt="" />
                 </div>
               ) : (
                 `${sleepScore} / ${RELAX_GOAL}`
