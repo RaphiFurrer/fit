@@ -89,7 +89,7 @@ button:focus-visible {
   background-color: #f5f5f5;
   display: flex;
   transition: transform 500ms ease-in;
-  transform: translateX(-130%);
+  transform: translateY(-130%);
   position: fixed;
   top: 20px;
   padding: 80px;
@@ -109,7 +109,7 @@ h2 {
 }
 
 .modal-open {
-  transform: translateX(0%);
+  transform: translateY(0%);
 }
 
 .medal {
