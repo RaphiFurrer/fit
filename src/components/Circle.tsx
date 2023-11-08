@@ -1,9 +1,9 @@
-const Circle = ({ percentage }: { percentage: number }) => {
+const Circle = ({ level }: { level: number }) => {
   const radius = 150; // Radius of the circle
   const strokeWidth = 30; // Width of the progress bar
   const normalizedRadius = radius - strokeWidth * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  const strokeDashoffset = circumference - (level / 3) * circumference;
 
   return (
     <>
@@ -30,12 +30,22 @@ const Circle = ({ percentage }: { percentage: number }) => {
         <text
           x={radius}
           y={radius}
-          fontSize="18"
-          className="text-teal text-center"
+          fontSize="50"
+          className="text-teal text-center font-bold"
           dominantBaseline="middle"
           textAnchor="middle"
         >
-          {percentage}%
+          {level}
+        </text>
+        <text
+          x={radius}
+          y={radius + 35}
+          fontSize="18"
+          fill="#333333"
+          dominantBaseline="middle"
+          textAnchor="middle"
+        >
+          Level
         </text>
       </svg>
     </>

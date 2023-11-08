@@ -14,13 +14,14 @@ import Header from './components/Header';
 import gold from './assets/gold.svg';
 import yoga from './assets/yoga.svg';
 import plant from './assets/plant.svg';
+import check from './assets/check.svg';
 
 const [today] = new Date().toISOString().split('T');
 
 const STEP_GOAL = 10000;
 const ACTIVE_MINUTE_GOAL = 20;
 const RELAX_GOAL = 90;
-const GOAL_TEXT = '1 Punkt erreicht';
+const GOAL_TEXT = `1 Punkt erreicht`;
 const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -115,13 +116,14 @@ function App() {
     () => Math.min(Math.round(((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100), 100),
     [activeZoneMinutes],
   );
-  const sleepPercentage = useMemo(() => sleepScore ?? 0, [sleepScore]);
+  const sleepPercentage = useMemo(() => Math.min(sleepScore ?? 0, 90) + 10, [sleepScore]);
 
-  const todayPercentage = useMemo(() => {
-    return Math.min(
-      Math.round(((stepPercentage + activeMinutePercentage + sleepPercentage) / 250) * 100),
-      100,
-    );
+  const level = useMemo(() => {
+    let level = 0;
+    if (stepPercentage === 100) level++;
+    if (activeMinutePercentage === 100) level++;
+    if (sleepPercentage === 100) level++;
+    return level;
   }, [activeMinutePercentage, sleepPercentage, stepPercentage]);
 
   const nextDay = useMemo(() => {
@@ -146,9 +148,11 @@ function App() {
       <div className="flex items-center justify-center">
         <div className="card relative">
           <p className="text-3xl font-bold">
-            {!params.date || params.date === today ? 'Heute' : params.date}
+            {!params.date || params.date === today
+              ? 'Heute'
+              : new Date(params.date).toLocaleDateString()}
           </p>
-          <Circle percentage={todayPercentage} />
+          <Circle level={level} />
           <Link
             className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
             to={nextDay}
@@ -164,29 +168,52 @@ function App() {
           <div className="flex justify-between mb-2">
             <div className="flex gap-2">
               <img className="icon" src={footsteps} alt="" />
-              <p className="text-lg font-bold">Bewegung</p>
+              <p className="text-lg font-bold">Schritte</p>
             </div>
-            <div>{steps > STEP_GOAL ? GOAL_TEXT : `${steps} / ${STEP_GOAL}`}</div>
+            <div>
+              {steps > STEP_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} alt="" />
+                </div>
+              ) : (
+                `${steps} / ${STEP_GOAL}`
+              )}
+            </div>
           </div>
           <Bar percentage={stepPercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
               <img src={sport} alt="" />
-              <p className="text-lg font-bold">Sport</p>
+              <p className="text-lg font-bold">Aktivminuten</p>
             </div>
             <p>
-              {activeZoneMinutes > ACTIVE_MINUTE_GOAL
-                ? GOAL_TEXT
-                : `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`}
+              {activeZoneMinutes > ACTIVE_MINUTE_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} alt="" />
+                </div>
+              ) : (
+                `${activeZoneMinutes} / ${ACTIVE_MINUTE_GOAL}`
+              )}
             </p>
           </div>
           <Bar percentage={activeMinutePercentage}></Bar>
           <div className="flex justify-between mb-2">
             <div className="flex gap-2 icon">
               <img src={sleep} alt="" />
-              <p className="text-lg font-bold">Erholung</p>
+              <p className="text-lg font-bold">Schlaf</p>
             </div>
-            <div>{sleepScore > RELAX_GOAL ? GOAL_TEXT : `${sleepScore} / ${RELAX_GOAL}`}</div>
+            <div>
+              {sleepScore > RELAX_GOAL ? (
+                <div className="flex gap-2">
+                  <p>{GOAL_TEXT}</p>
+                  <img className="w-4" src={check} alt="" />
+                </div>
+              ) : (
+                `${sleepScore} / ${RELAX_GOAL}`
+              )}
+            </div>
           </div>
           <Bar percentage={sleepPercentage}></Bar>
         </div>
@@ -196,7 +223,7 @@ function App() {
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Private Vorsorge</p>
           <p>Investiere in deine Säule 3a und deine Zukunft</p>
-          <img className="w-1/2 mx-auto w-[50px]" src={gold} alt="" />
+          <img className="mx-auto w-[50px]" src={gold} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Swibeco</p>
@@ -208,7 +235,7 @@ function App() {
           <p className="pb-4">
             Gutschein bei einem Leistungserbringer einlösen z.B. eine Yoga-Stunde
           </p>
-          <img className="w-1/2 mx-auto w-[50px]" src={yoga} alt="" />
+          <img className="mx-auto w-[50px]" src={yoga} alt="" />
         </div>
         <div className="bg-[#9fbeaf] rounded-lg shadow-lg p-4 mb-4">
           <p className="pt-4 font-bold text-xl">Klimaspende</p>
