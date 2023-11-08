@@ -146,7 +146,9 @@ function App() {
       <div className="flex items-center justify-center">
         <div className="card relative">
           <p className="text-3xl font-bold">
-            {!params.date || params.date === today ? 'Heute' : params.date}
+            {!params.date || params.date === today
+              ? 'Heute'
+              : new Date(params.date).toLocaleDateString()}
           </p>
           <Circle level={level} />
           <Link
