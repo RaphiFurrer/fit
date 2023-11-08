@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import fitbit from '../assets/fitbit.svg';
+import apple from '../assets/apple.svg';
+import garmin from '../assets/garmin.svg';
 
 const authUrl =
   'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RKZM&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=kbbxXLV--bx-NKTtE0rBrwQoDG78mgQLTnGBGVpNRHQ&code_challenge_method=S256&state=4v6t690k0y491g102f5u3j365g0p5b11&redirect_uri=http%3A%2F%2Flocalhost%3A5173';
@@ -46,11 +48,19 @@ const Login = () => {
   return (
     <div>
       {!localStorage.getItem('access_token') && (
-        <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center">
+        <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
           <img src={fitbit} alt="" className="w-12 h-12" />
           <a href={authUrl}>Mit Fitbit verbinden</a>
         </div>
       )}
+      <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center mb-2">
+        <img src={apple} alt="" className="w-12 h-12 p-4" />
+        <a>Mit Apple verbinden</a>
+      </div>
+      <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex gap-2 justify-center justify-items-center items-center">
+        <img src={garmin} alt="" className="w-12 h-12" />
+        <a href={authUrl}>Mit Garmin verbinden</a>
+      </div>
     </div>
   );
 };
