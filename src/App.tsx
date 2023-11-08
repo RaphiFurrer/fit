@@ -115,13 +115,14 @@ function App() {
     () => Math.min(Math.round(((activeZoneMinutes ?? 0) / ACTIVE_MINUTE_GOAL) * 100), 100),
     [activeZoneMinutes],
   );
-  const sleepPercentage = useMemo(() => sleepScore ?? 0, [sleepScore]);
+  const sleepPercentage = useMemo(() => Math.min(sleepScore ?? 0, 90) + 10, [sleepScore]);
 
-  const todayPercentage = useMemo(() => {
-    return Math.min(
-      Math.round(((stepPercentage + activeMinutePercentage + sleepPercentage) / 250) * 100),
-      100,
-    );
+  const level = useMemo(() => {
+    let level = 0;
+    if (stepPercentage === 100) level++;
+    if (activeMinutePercentage === 100) level++;
+    if (sleepPercentage === 100) level++;
+    return level;
   }, [activeMinutePercentage, sleepPercentage, stepPercentage]);
 
   const nextDay = useMemo(() => {
@@ -148,7 +149,7 @@ function App() {
           <p className="text-3xl font-bold">
             {!params.date || params.date === today ? 'Heute' : params.date}
           </p>
-          <Circle percentage={todayPercentage} />
+          <Circle level={level} />
           <Link
             className="absolute right-1 top-[28%] text-gray-800 font-semibold py-2 px-4 scale-150"
             to={nextDay}
