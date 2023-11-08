@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
     const isFutureDate = Date.parse(params.date || new Date().toISOString()) > new Date().getTime();
-    if (!accessToken) {
+    if (accessToken) {
       fetch(
         `https://api.fitbit.com/1/user/-/activities/active-zone-minutes/date/${
           params.date || today
