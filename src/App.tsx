@@ -245,7 +245,7 @@ function App() {
           <img className="mx-auto w-[50px]" src={plant} alt="" />
         </div>
       </div>
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} level={level} />
       <Footer />
     </>
   );
