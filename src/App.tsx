@@ -93,6 +93,7 @@ function App() {
   return (
     <>
       <Login />
+        <button onClick={()=>{setIsOpen(true)}}>levelup</button>
       <div className="flex items-center justify-center">
         <div className="card">
           <p className="text-3xl font-bold">Heute</p>
@@ -140,8 +141,8 @@ function App() {
         </div>
 
       </div>
-      <button onClick={()=>{setIsOpen(true)}}>levelup</button>
-      <Modal isOpen={isOpen}/>
+
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen}/>
       <Footer />
     </>
   );
